@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'ui/products/product_detail_screen.dart';
 import 'ui/products/products_manager.dart';
 import 'ui/products/product_overview_screen.dart';
+import 'ui/products/user_products_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       .copyWith(secondary: Colors.deepOrange,),
     ),
       home: const SafeArea(
-        child: ProductsOverviewScreen(),
+        child: UserProductsScreen(),
       ),
     );
   }
