@@ -9,14 +9,14 @@ class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('building orders');
-    final orderManager = OrderManager();
+    final ordersManager = OrdersManager();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Orders'),
       ),
       body: ListView.builder(
-        itemCount: orderManager.orderCount,
-        itemBuilder: (ctx, i) => OrderItemCard(orderManager.orders[i]),
+        itemCount: ordersManager.orderCount,
+        itemBuilder: (ctx, i) => OrderItemCard(ordersManager.orders[i]),
       ),
     );
   }
