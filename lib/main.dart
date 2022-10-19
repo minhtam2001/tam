@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // import 'ui/products/product_detail_screen.dart';
 // import 'ui/products/products_manager.dart';
 // import 'ui/products/products_overview_screen.dart';
 // import 'ui/products/user_products_screen.dart';
 // import 'ui/cart/cart_screen.dart';
-//import 'ui/orders/orders_screen.dart';
+// import 'ui/orders/orders_screen.dart';
 import 'ui/screens.dart';
-import 'package:provider/provider.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (ctx) => ProductsManager(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => CartManager(),
         ),
       ],
       child: MaterialApp(
