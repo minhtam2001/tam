@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:myshop/models/product.dart';
 import 'package:provider/provider.dart';
-// import 'ui/products/product_detail_screen.dart';
-// import 'ui/products/products_manager.dart';
-// import 'ui/products/products_overview_screen.dart';
-// import 'ui/products/user_products_screen.dart';
-// import 'ui/cart/cart_screen.dart';
-// import 'ui/orders/orders_screen.dart';
+
+import 'ui/products/products_manager.dart';
+import 'ui/orders/order_manager.dart';
+import 'ui/cart/cart_manager.dart';
 import 'ui/screens.dart';
 
 void main() {
@@ -34,17 +33,17 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Lato',
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple,)
-        .copyWith(secondary: Colors.deepOrange,),
-      ),
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.purple,
+          ).copyWith(
+            secondary: Colors.deepOrange,
+          ),
+        ),
         home: const ProductsOverviewScreen(),
         routes: {
-          CartScreen.routeName:
-            (ctx) => const CartScreen(),
-          OrdersScreen.routeName:
-            (ctx) => const OrdersScreen(),
-          UserProductsScreen.routeName:
-            (ctx) => const UserProductsScreen(),
+          CartScreen.routeName: (ctx) => const CartScreen(),
+          OrdersScreen.routeName: (ctx) => const OrdersScreen(),
+          UserProductsScreen.routeName: (ctx) => const UserProductsScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == ProductDetailScreen.routeName) {
@@ -52,7 +51,19 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               builder: (ctx) {
                 return ProductDetailScreen(
-                  ctx.read<ProductsManager>().findById(productId)
+                  ctx.read<ProductsManager>().findById(productId),
+                );
+              },
+            );
+          }
+          if (settings.name == EditProductScreen.routeName) {
+            final productId = settings.arguments as String?;
+            return MaterialPageRoute(
+              builder: (ctx) {
+                return EditProductScreen(
+                  productId != null
+                      ? ctx.read<ProductsManager>().findById(productId)
+                      : null,
                 );
               },
             );
@@ -63,4 +74,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
