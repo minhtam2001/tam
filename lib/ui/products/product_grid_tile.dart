@@ -3,6 +3,7 @@ import 'package:myshop/ui/cart/cart_manager.dart';
 import 'package:provider/provider.dart';
 import '../../models/product.dart';
 import 'product_detail_screen.dart';
+import 'products_manager.dart';
 
 class ProductGridTile extends StatelessWidget {
   const ProductGridTile(
@@ -49,7 +50,7 @@ class ProductGridTile extends StatelessWidget {
             ),
             color: Theme.of(context).colorScheme.secondary,
             onPressed: () {
-              product.isFavorite = !isFavorite;
+              ctx.read<ProductsManager>().toggleFavoriteStatus(product);
             },
           );
         },

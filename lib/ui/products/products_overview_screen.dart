@@ -27,9 +27,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     _fetchProducts = context.read<ProductsManager>().fetchProducts();
   }
 
-
   @override
-  Widget build(BuildContext context) {
+    Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('MyShop'),
@@ -40,21 +39,19 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       ),
       drawer: const AppDrawer(),
       body: FutureBuilder(
-        future: _fetchProducts,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return ValueListenableBuilder<bool>(
-              valueListenable: _showOnlyFavorites,
-                builder: (context, onlyFavorites, child) {
-                  return ProductsGrid(onlyFavorites);
-                }
+          future: _fetchProducts,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return ValueListenableBuilder<bool>(
+                  valueListenable: _showOnlyFavorites,
+                  builder: (context, onlyFavorites, child) {
+                    return ProductsGrid(onlyFavorites);
+                  });
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      ),
+          }),
     );
   }
 

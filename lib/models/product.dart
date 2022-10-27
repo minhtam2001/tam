@@ -28,7 +28,7 @@ class Product {
   ValueNotifier<bool> get isFavoriteListenable {
     return _isFavorite;
   }
-  
+
   Product copyWith({
     String? id,
     String? title,
@@ -46,6 +46,7 @@ class Product {
       isFavorite: isFavorite ?? this.isFavorite,
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'title': title,

@@ -13,7 +13,7 @@ class ProductsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final productsManager = ProductsManager();
     final products = context.select<ProductsManager, List<Product>>(
-      (ProductsManager) => showFavorites
+      (productsManager) => showFavorites
         ? productsManager.favoriteItems
         : productsManager.items
     );

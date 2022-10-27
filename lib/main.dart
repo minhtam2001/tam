@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myshop/models/product.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import 'ui/products/products_manager.dart';
 import 'ui/orders/order_manager.dart';
 import 'ui/cart/cart_manager.dart';
@@ -19,27 +18,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (ctx) => AuthManager(),
-        ),
-        ChangeNotifierProxyProvider<AuthManager, ProductsManager>(
-          create: (ctx) => ProductsManager(),
-          update: (ctx, authManager, productsManager) {
-          // Khi authManager có báo hiệu thay đổi thì đọc lại authToken
-          // cho productManager
-            productsManager!.authToken = authManager.authToken;
-            return productsManager;
-          },
-        ),  
-        ChangeNotifierProvider(
-          create: (ctx) => CartManager(),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => OrdersManager(),
-        ),
-      ],
-      child: Consumer<AuthManager>(
+        providers: [
+          ChangeNotifierProvider(
+            create: (ctx) => AuthManager(),
+          ),
+
+          ChangeNotifierProxyProvider<AuthManager, ProductsManager>(
+            create: (ctx) => ProductsManager(),
+            update: (ctx, authManager, productsManager) {
+              productsManager!.authToken = authManager.authToken;
+              return productsManager;
+            },
+          ),
+
+          ChangeNotifierProvider(
+            create: (ctx) => CartManager(),
+          ),
+
+          ChangeNotifierProvider(
+            create: (ctx) => OrdersManager(),
+          ),
+          
+        ],
+        child: Consumer<AuthManager>(
           builder: (ctx, authManager, child) {
             return MaterialApp(
               title: 'My Shop',
@@ -65,7 +66,8 @@ class MyApp extends StatelessWidget {
               routes: {
                 CartScreen.routeName: (ctx) => const CartScreen(),
                 OrdersScreen.routeName: (ctx) => const OrdersScreen(),
-                UserProductsScreen.routeName: (ctx) => const UserProductsScreen(),
+                UserProductsScreen.routeName: (ctx) =>
+                    const UserProductsScreen(),
               },
               onGenerateRoute: (settings) {
                 if (settings.name == ProductDetailScreen.routeName) {
@@ -94,6 +96,6 @@ class MyApp extends StatelessWidget {
               },
             );
           },
-      ));
+        ));
   }
 }
